@@ -3,14 +3,11 @@ import kue from "kue";
 // create a queue
 const queue = kue.createQueue();
 
-// create a job data object
-const data = {
+// create a job
+const job = queue.create("push_notification_code", {
   phoneNumber: "+254719286396",
   message: "Hello",
-};
-
-// create the job
-const job = queue.create("push_notification_code", data);
+});
 
 // save the job
 job.save((err) => {
