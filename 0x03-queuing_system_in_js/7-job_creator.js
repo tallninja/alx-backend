@@ -53,12 +53,15 @@ const queue = kue.createQueue();
 
 for (let _job of jobs) {
   // create the job
-  const job = queue.createJob("push_notification_code_2", _job);
+  const job = queue.createJob("push_notification_code_2", _job).save();
 
   // save job
-  job.save((err) => {
-    if (err) console.log(`Notification job ${job.id} failed: ${err}`);
+  job.on("enqueue", () => {
     console.log(`Notification job created: ${job.id}`);
+  });
+
+  job.on("failed", (err) => {
+    console.log(`Notification job ${job.id} failed: ${err}`);
   });
 
   job.on("progress", (progress) => {
