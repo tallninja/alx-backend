@@ -55,21 +55,16 @@ for (let _job of jobs) {
   // create the job
   const job = queue.createJob("push_notification_code_2", _job).save();
 
-  // save job
-  job.on("enqueue", () => {
-    console.log(`Notification job created: ${job.id}`);
-  });
+  job.on("enqueue", () => console.log(`Notification job created: ${job.id}`));
 
-  job.on("failed", (err) => {
-    console.log(`Notification job ${job.id} failed: ${err}`);
-  });
+  job.on("failed", (err) =>
+    console.log(`Notification job ${job.id} failed: ${err}`)
+  );
 
-  job.on("progress", (progress) => {
-    console.log(`Notification job ${job.id} ${progress}% complete`);
-  });
+  job.on("progress", (progress) =>
+    console.log(`Notification job ${job.id} ${progress}% complete`)
+  );
 
   // when job is completed
-  job.on("complete", () => {
-    console.log(`Notification job ${job.id} completed`);
-  });
+  job.on("complete", () => console.log(`Notification job ${job.id} completed`));
 }
